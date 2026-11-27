@@ -17,3 +17,23 @@
 - Configure the UI to call the API at `http://api:8000` from inside Compose; use the Compose service name, not `localhost`.
 - Start the full stack from the project root with `docker compose up --build`.
 - Verify the UI prediction, API docs at `http://localhost:8000/docs`, and inference records in PostgreSQL.
+
+---
+
+## How to run
+
+```bash
+docker compose up --build
+```
+
+- UI (Streamlit): http://localhost:8501
+- API docs (Swagger): http://localhost:8000/docs
+- PostgreSQL: `localhost:5432` (db `iris`, user `postgres`, password `postgres`)
+
+Check the logged predictions:
+
+```bash
+docker compose exec db psql -U postgres -d iris -c "SELECT * FROM inferences;"
+```
+
+`api/.env` holds `DATABASE_URL`; its db name / user / password match the `db` service in `compose.yaml`. See `api/.env.example` for the template.
